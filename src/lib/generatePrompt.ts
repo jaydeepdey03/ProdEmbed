@@ -2,14 +2,14 @@ import { ChatOpenAI } from "@langchain/openai";
 import { PromptTemplate } from "@langchain/core/prompts";
 
 const llm = new ChatOpenAI({
-  model: "gpt-4o-mini",
-  temperature: 0,
-  apiKey: import.meta.env.VITE_OPENAI_API_KEY!,
+    model: "gpt-4o-mini",
+    temperature: 0,
+    apiKey: import.meta.env.VITE_OPENAI_API_KEY!,
 });
 
 
-
-const promptText = `
+/* tslint:disable:no-unused-variable */
+export const promptText = `
 # This prompt is designed to help an AI model understand code examples from Solidity programming languages to Cairo Programming Language and vice-versa. The goal is to enable the AI model to generate equivalent code in the second language based on the provided example in the first language and vice-versa.
 
 Data Type in solidity and Cairo
@@ -256,8 +256,8 @@ mod Counter {
 
 
 const prompt = new PromptTemplate({
-  template: "How to convert the given {inputLanguage} which is given as follows to {outputLanguage} code? {inputCode}",
-  inputVariables: ["inputLanguage", "inputCode", "outputLanguage"],
+    template: "How to convert the given {inputLanguage} which is given as follows to {outputLanguage} code? {inputCode}",
+    inputVariables: ["inputLanguage", "inputCode", "outputLanguage"],
 });
 
 
