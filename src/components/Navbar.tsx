@@ -5,9 +5,9 @@ import {Button} from "./ui/button";
 import {useState} from "react";
 
 export default function Navbar() {
-  const [connection, setConnection] = useState<
-    StarknetWindowObject | null | undefined
-  >(null);
+  const [, setConnection] = useState<StarknetWindowObject | null | undefined>(
+    null
+  );
   const [address, setAddress] = useState<string | undefined>();
   return (
     <div className="w-full h-[70px] border-b flex justify-between items-center px-6">

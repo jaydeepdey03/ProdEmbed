@@ -1,7 +1,7 @@
-import {ArrowRight, Plus, StarIcon, Upload} from "lucide-react";
+import {Plus, Upload} from "lucide-react";
 import {useNavigate} from "react-router-dom";
 import Navbar from "./components/Navbar";
-import {useEffect, useRef, useState} from "react";
+import {useState} from "react";
 // import {Button} from "starkpay-lib";
 import {Button} from "@/components/ui/button";
 import {
@@ -10,7 +10,6 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import Dropzone from "react-dropzone";
 import {Field, Form, Formik} from "formik";
