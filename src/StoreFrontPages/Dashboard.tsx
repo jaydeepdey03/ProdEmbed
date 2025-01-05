@@ -1,24 +1,46 @@
 import {summaryCards} from "@/lib/data";
 import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
-import Navbar from "./components/Navbar";
 import {
-  Line,
-  LineChart,
+  Area,
+  AreaChart,
+  Bar,
+  BarChart,
   ResponsiveContainer,
   Tooltip,
   XAxis,
   YAxis,
 } from "recharts";
-import {ChartContainer, ChartTooltipContent} from "./components/ui/chart";
+import {ChartContainer} from "../components/ui/chart";
 
 const data = [
-  {name: "Jan", total: 2400},
-  {name: "Feb", total: 1398},
-  {name: "Mar", total: 9800},
-  {name: "Apr", total: 3908},
-  {name: "May", total: 4800},
-  {name: "Jun", total: 3800},
-  {name: "Jul", total: 4300},
+  {
+    name: "Page A",
+    total: 400,
+  },
+  {
+    name: "Page B",
+    total: 300,
+  },
+  {
+    name: "Page C",
+    total: 300,
+  },
+  {
+    name: "Page D",
+    total: 200,
+  },
+  {
+    name: "Page E",
+    total: 278,
+  },
+  {
+    name: "Page F",
+    total: 189,
+  },
+  {
+    name: "Page G",
+    total: 239,
+  },
 ];
 
 // const data1 = [
@@ -50,9 +72,8 @@ const data = [
 
 export default function Dashboard() {
   return (
-    <div className="">
+    <div className="h-full w-full">
       {/* <h1 className="text-2xl font-bold mb-4">Store Dashboard</h1> */}
-      <Navbar />
       <div className="grid gap-4 md:grid-cols-3 mb-8 mt-10 px-10">
         {summaryCards.map((card, index) => (
           <Card key={index}>
@@ -70,8 +91,8 @@ export default function Dashboard() {
       </div>
       <div className="px-10">
         <h2 className="text-xl font-semibold mb-4">Products</h2>
-        <div className="w-full h-full flex gap-3">
-          <Card className="w-1/2 h-full">
+        <div className="w-full h-full flex gap-3 flex-col lg:flex-row">
+          <Card className="w-full lg:w-1/2 h-full">
             <CardHeader>
               <CardTitle>Revenue Overview</CardTitle>
             </CardHeader>
@@ -86,34 +107,43 @@ export default function Dashboard() {
                 className="h-full pr-6"
               >
                 <ResponsiveContainer width="100%" height="100%">
-                  <LineChart data={data}>
-                    <XAxis
-                      dataKey="name"
-                      stroke="#888888"
-                      fontSize={12}
-                      tickLine={false}
-                      axisLine={false}
-                    />
-                    <YAxis
-                      stroke="#888888"
-                      fontSize={12}
-                      tickLine={false}
-                      axisLine={false}
-                      tickFormatter={(value) => `$${value}`}
-                    />
-                    <Tooltip content={<ChartTooltipContent />} />
-                    <Line
+                  <AreaChart
+                    width={730}
+                    height={250}
+                    data={data}
+                    margin={{top: 10, right: 30, left: 0, bottom: 0}}
+                  >
+                    <defs>
+                      <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+                        <stop
+                          offset="5%"
+                          stopColor="#8884d8"
+                          stopOpacity={0.8}
+                        />
+                        <stop
+                          offset="95%"
+                          stopColor="#8884d8"
+                          stopOpacity={0}
+                        />
+                      </linearGradient>
+                    </defs>
+                    <XAxis dataKey="name" />
+                    <YAxis />
+                    {/* <CartesianGrid strokeDasharray="3 3" /> */}
+                    <Tooltip />
+                    <Area
                       type="monotone"
                       dataKey="total"
-                      strokeWidth={2}
-                      activeDot={{r: 8}}
+                      stroke="#8884d8"
+                      fillOpacity={1}
+                      fill="url(#colorUv)"
                     />
-                  </LineChart>
+                  </AreaChart>
                 </ResponsiveContainer>
               </ChartContainer>
             </CardContent>
           </Card>
-          <Card className="w-1/2 h-full">
+          <Card className="w-full lg:w-1/2 h-full">
             <CardHeader>
               <CardTitle>Revenue Overview</CardTitle>
             </CardHeader>
@@ -128,29 +158,14 @@ export default function Dashboard() {
                 className="h-full pr-6"
               >
                 <ResponsiveContainer width="100%" height="100%">
-                  <LineChart data={data}>
-                    <XAxis
-                      dataKey="name"
-                      stroke="#888888"
-                      fontSize={12}
-                      tickLine={false}
-                      axisLine={false}
-                    />
-                    <YAxis
-                      stroke="#888888"
-                      fontSize={12}
-                      tickLine={false}
-                      axisLine={false}
-                      tickFormatter={(value) => `$${value}`}
-                    />
-                    <Tooltip content={<ChartTooltipContent />} />
-                    <Line
-                      type="monotone"
-                      dataKey="total"
-                      strokeWidth={2}
-                      activeDot={{r: 8}}
-                    />
-                  </LineChart>
+                  <BarChart width={730} height={250} data={data}>
+                    {/* <CartesianGrid strokeDasharray="3 3" /> */}
+                    <XAxis dataKey="name" />
+                    <YAxis />
+                    <Tooltip />
+                    {/* <Legend /> */}
+                    <Bar dataKey="total" fill="#82ca9d" />
+                  </BarChart>
                 </ResponsiveContainer>
               </ChartContainer>
             </CardContent>
