@@ -1,5 +1,3 @@
-import React from "react";
-
 import {sepolia} from "@starknet-react/chains";
 import {
   StarknetConfig,
@@ -8,8 +6,6 @@ import {
   braavos,
   useInjectedConnectors,
   voyager,
-  useProvider,
-  jsonRpcProvider,
 } from "@starknet-react/core";
 
 export function StarknetProvider({children}: {children: React.ReactNode}) {
@@ -19,7 +15,7 @@ export function StarknetProvider({children}: {children: React.ReactNode}) {
     // Hide recommended connectors if the user has any connector installed.
     includeRecommended: "onlyIfNoConnectors",
     // Randomize the order of the connectors.
-    order: "random",
+    order: "alphabetical",
   });
 
   return (

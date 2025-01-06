@@ -5,20 +5,18 @@ import {
   useConnect,
   useContract,
   useDisconnect,
-  useProvider,
   useSendTransaction,
 } from "@starknet-react/core";
 import {starknetCounterAbi} from "@/lib/starknetabi";
-import {useEffect, useMemo} from "react";
+import {useMemo} from "react";
 
 export default function Navbar() {
   const {connect, connectors} = useConnect();
   const {address} = useAccount();
   const {disconnect} = useDisconnect({});
-  const {provider} = useProvider();
 
   const testAddress =
-    "0x05bbce312570da006e894ca4706bf35ae58421abe3f4440321a5380dee60487a";
+    "0x04718f5a0fc34cc1af16a1cdee98ffb20c31f5cd61d6ab07201858f4287c938d";
 
   const {contract} = useContract({
     abi: starknetCounterAbi as any,
@@ -28,42 +26,36 @@ export default function Navbar() {
   const calls = useMemo(() => {
     if (!address || !contract) return [];
     try {
-      return [contract.populate("set_count", [BigInt(69)])];
+      console.log("contract", contract);
+      // return [contract.populate("set_count", [BigInt(679)])];
+      return [
+        contract.populate("transfer", [
+          "0x01a4B0066a5d7520c710cb07940c0Cb83355Ec1aE47d8D257eEeCD16A51225FA",
+          BigInt(679),
+        ]),
+      ];
     } catch (error) {
       console.error(error);
       return [];
     }
   }, [contract, address]);
 
-  // useEffect(() => {
-  //   if (contract) {
-  //     (async function () {
-  //       const res = await contract.get_count();
-  //       console.log(res, "res");
-  //     })();
-  //   }
-  // }, []);
+  const {send: writeAsync} = useSendTransaction({});
 
-  const {send: writeAsync} = useSendTransaction({
-    calls: calls,
-  });
-
+  <Button onClick={() => writeAsync(calls)}>Test</Button>;
   return (
     <div className="w-full h-[70px] border-b flex justify-between items-center px-6">
       <div>
         <b>FundWork</b>
       </div>
 
-      <Button onClick={() => writeAsync()}>Test</Button>
       <div className="flex items-center gap-6">
         <div className="flex items-center gap-4">
           <p className="font-semibold">{address ? address : "0x"}</p>
           {!address && connectors.length > 0 ? (
-            connectors.map((connector, index) => (
-              <Button key={index} onClick={() => connect({connector})}>
-                Connect {connector.id}
-              </Button>
-            ))
+            <Button onClick={() => connect({connector: connectors[0]})}>
+              Connect {connectors[0].id}
+            </Button>
           ) : (
             <Button
               onClick={() => {
