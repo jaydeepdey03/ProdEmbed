@@ -73,7 +73,16 @@ const data = [
 export default function Dashboard() {
   return (
     <div className="h-full w-full">
-      {/* <h1 className="text-2xl font-bold mb-4">Store Dashboard</h1> */}
+      <div className="mx-7">
+        <div className="w-full h-32 mt-5 ounded-xl">
+          <img
+            // src="https://via.placeholder.com/1200x400"
+            src="/test.png"
+            alt="Banner"
+            className="w-full h-full object-cover rounded-xl"
+          />
+        </div>
+      </div>
       <div className="grid gap-4 md:grid-cols-3 mb-8 mt-10 px-10">
         {summaryCards.map((card, index) => (
           <Card key={index}>

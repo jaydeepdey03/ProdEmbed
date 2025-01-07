@@ -23,6 +23,7 @@ import {Field, Form, Formik} from "formik";
 import {Input} from "@/components/ui/input";
 import {Label} from "@/components/ui/label";
 import {Checkbox} from "@/components/ui/checkbox";
+import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs";
 
 export default function ProductsListedPage() {
   const [showDialog, setShowDialog] = useState(false);
@@ -32,6 +33,8 @@ export default function ProductsListedPage() {
         <DialogContent
           className="max-w-fit"
           onInteractOutside={(e) => e.preventDefault()}
+          // disable on esc key
+          onEscapeKeyDown={(e) => e.preventDefault()}
         >
           <DialogHeader>
             <DialogTitle>Create Product</DialogTitle>
@@ -50,7 +53,7 @@ export default function ProductsListedPage() {
               >
                 {(formik) => (
                   <Form className="flex flex-col gap-4">
-                    <div className="w-[800px] h-[500px]  flex gap-4 items-center">
+                    <div className="w-[900px] h-[500px] flex gap-4 items-center">
                       <div className="w-1/3 h-full text-black gap-4 flex flex-col">
                         <p className="pl-1 mb-4"></p>
                         <div className="flex flex-col pt-2 gap-2">
@@ -134,59 +137,79 @@ export default function ProductsListedPage() {
                           Submit
                         </Button>
                       </div>
-                      <div className="w-2/3 h-full flex justify-center items-center border rounded-xl bg-gray-100">
-                        <Card className="w-[350px] max-w-md mx-auto">
-                          <CardContent className="p-6">
-                            <img
-                              // src={"https://github.com/shadcn-ui.png"}
-                              src={
-                                formik.values.image
-                                  ? formik.values.image
-                                  : "https://media.istockphoto.com/id/1147544807/vector/thumbnail-image-vector-graphic.jpg?s=612x612&w=0&k=20&c=rnCKVbdxqkjlcs3xH87-9gocETqpspHFXu5dIGB4wuM="
-                              }
-                              alt={"img"}
-                              className="w-full h-48 object-cover mb-4 rounded"
-                            />
-                            <h2 className="text-xl font-semibold mb-2">
-                              {formik.values.name || "Product Name"}
-                            </h2>
-                            <p className="text-2xl font-bold mb-4">
-                              {Number(formik.values.price).toFixed(2)}&nbsp;USDC
-                            </p>
+                      <div className="w-2/3 h-full flex justify-center items-center">
+                        <Tabs defaultValue="account" className="w-full h-full">
+                          <TabsList>
+                            <TabsTrigger value="account">Account</TabsTrigger>
+                            <TabsTrigger value="password">Password</TabsTrigger>
+                          </TabsList>
+                          <TabsContent value="account" className="h-[90%]">
+                            <div className="h-full flex justify-center items-center border rounded-xl bg-gray-100">
+                              <Card className="w-[350px] max-w-md mx-auto">
+                                <CardContent className="p-6">
+                                  <img
+                                    // src={"https://github.com/shadcn-ui.png"}
+                                    src={
+                                      formik.values.image
+                                        ? formik.values.image
+                                        : "https://media.istockphoto.com/id/1147544807/vector/thumbnail-image-vector-graphic.jpg?s=612x612&w=0&k=20&c=rnCKVbdxqkjlcs3xH87-9gocETqpspHFXu5dIGB4wuM="
+                                    }
+                                    alt={"img"}
+                                    className="w-full h-48 object-cover mb-4 rounded"
+                                  />
+                                  <h2 className="text-xl font-semibold mb-2">
+                                    {formik.values.name || "Product Name"}
+                                  </h2>
+                                  <p className="text-2xl font-bold mb-4">
+                                    {Number(formik.values.price).toFixed(2)}
+                                    &nbsp;USDC
+                                  </p>
 
-                            <div className="flex flex-col gap-2">
-                              <div className="space-x-2 flex items-center">
-                                {formik.values.isStarknet && (
-                                  <Button
-                                    className="w-full"
-                                    variant={"outline"}
-                                  >
-                                    <img
-                                      src="/starknet.svg"
-                                      alt="starknet"
-                                      className="h-4 w-4"
-                                    />
-                                    Pay with Starknet
-                                  </Button>
-                                )}
-                                {formik.values.isEthereum && (
-                                  <Button variant="outline" className="w-full">
-                                    <img
-                                      src="/ethereum.png"
-                                      alt="ethereum"
-                                      className="h-4 w-4"
-                                    />
-                                    Pay with Eth
-                                  </Button>
-                                )}
-                              </div>
-                              <Button variant="outline" className="w-full">
-                                <ExternalLink className="h-4 w-4 text-muted-foreground" />
-                                View in Link
-                              </Button>
+                                  <div className="flex flex-col gap-2">
+                                    <div className="space-x-2 flex items-center">
+                                      {formik.values.isStarknet && (
+                                        <Button
+                                          className="w-full"
+                                          variant={"outline"}
+                                        >
+                                          <img
+                                            src="/starknet.svg"
+                                            alt="starknet"
+                                            className="h-4 w-4"
+                                          />
+                                          Pay with Starknet
+                                        </Button>
+                                      )}
+                                      {formik.values.isEthereum && (
+                                        <Button
+                                          variant="outline"
+                                          className="w-full"
+                                        >
+                                          <img
+                                            src="/ethereum.png"
+                                            alt="ethereum"
+                                            className="h-4 w-4"
+                                          />
+                                          Pay with Eth
+                                        </Button>
+                                      )}
+                                    </div>
+                                    <Button
+                                      variant="outline"
+                                      className="w-full"
+                                    >
+                                      <ExternalLink className="h-4 w-4 text-muted-foreground" />
+                                      View in Link
+                                    </Button>
+                                  </div>
+                                </CardContent>
+                              </Card>
                             </div>
-                          </CardContent>
-                        </Card>
+                          </TabsContent>
+                          <TabsContent value="password">
+                            Change your password here.
+                          </TabsContent>
+                        </Tabs>
                       </div>
                     </div>
                   </Form>

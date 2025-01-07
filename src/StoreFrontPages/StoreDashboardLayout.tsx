@@ -1,22 +1,7 @@
 import Navbar from "@/components/Navbar";
 import {Button} from "@/components/ui/button";
-import {
-  ArrowRight,
-  BarChartBig,
-  Briefcase,
-  House,
-  LayoutDashboard,
-  Package,
-  Pencil,
-  Settings,
-} from "lucide-react";
-import {
-  Outlet,
-  useLocation,
-  useNavigate,
-  useParams,
-  useSearchParams,
-} from "react-router-dom";
+import {House, Package, Settings} from "lucide-react";
+import {Outlet, useLocation, useNavigate, useParams} from "react-router-dom";
 
 const StoreDashboardLayout = () => {
   const {id} = useParams();
@@ -26,7 +11,12 @@ const StoreDashboardLayout = () => {
   return (
     <div>
       <Navbar />
-      <div className="min-h-screen flex">
+      <div
+        className="flex"
+        style={{
+          height: "calc(100vh - 70px)",
+        }}
+      >
         <div
           className={
             "pb-12 min-w-[250px] border-r border-gray-200 hidden md:block"
