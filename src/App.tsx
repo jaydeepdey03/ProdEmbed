@@ -8,25 +8,32 @@ import Settings from "./StoreFrontPages/Settings";
 import ProductsListedPage from "./StoreFrontPages/ProductsListedPage";
 import Test from "./Test";
 import {StarknetProvider} from "./starknetstuff/starknet-provider";
+import GlobalContextProvider from "./context/GlobalContext";
+import ConnectWalletPage from "./ConnectWallet";
+import {Toaster} from "@/components/ui/sonner";
 
 function App() {
   return (
     <>
       <StarknetProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/dashboard/:id" element={<StoreDashboardLayout />}>
-              <Route index element={<Dashboard />} />
-              <Route path="products/:id" element={<ProductsListedPage />} />
-              <Route path="settings/:id" element={<Settings />} />
-            </Route>
-            <Route path="/create-store" element={<CreateStore />} />
-            <Route path="/producteditor/:id" element={<ProductEditor />} />
-            <Route path="/test" element={<Test />} />
-            <Route path="*" element={<div>Not Found</div>} />
-          </Routes>
-        </BrowserRouter>
+        <GlobalContextProvider>
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/connect" element={<ConnectWalletPage />} />
+              <Route path="/dashboard/:id" element={<StoreDashboardLayout />}>
+                <Route index element={<Dashboard />} />
+                <Route path="products/:id" element={<ProductsListedPage />} />
+                <Route path="settings/:id" element={<Settings />} />
+              </Route>
+              <Route path="/create-store" element={<CreateStore />} />
+              <Route path="/producteditor/:id" element={<ProductEditor />} />
+              <Route path="/test" element={<Test />} />
+              <Route path="*" element={<div>Not Found</div>} />
+            </Routes>
+          </BrowserRouter>
+        </GlobalContextProvider>
+        <Toaster />
       </StarknetProvider>
     </>
   );

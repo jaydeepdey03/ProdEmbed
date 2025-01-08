@@ -9,7 +9,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import {Product, products} from "@/lib/products";
-import {ArrowRight, ExternalLink} from "lucide-react";
+import {ArrowRight, ExternalLink, Loader2} from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -24,9 +24,56 @@ import {Input} from "@/components/ui/input";
 import {Label} from "@/components/ui/label";
 import {Checkbox} from "@/components/ui/checkbox";
 import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs";
+import useGlobalContext from "@/context/useGlobalContext";
+import {toast} from "sonner";
+import {v4 as uuidv4} from "uuid";
+import {PinataSDK} from "pinata-web3";
+import {useLocation} from "react-router-dom";
 
 export default function ProductsListedPage() {
   const [showDialog, setShowDialog] = useState(false);
+  const {etheruemContract, ethereumAccount} = useGlobalContext();
+  const location = useLocation();
+  console.log();
+
+  const addProduct = async (
+    productImage: string,
+    productName: string,
+    price: string,
+    stock: number,
+    isEthereum: boolean,
+    isStarknet: boolean
+  ) => {
+    try {
+      if (etheruemContract && ethereumAccount !== "") {
+        toast.loading("Adding product...");
+        const productId = uuidv4();
+
+        const priceInWei = BigInt(Number(price) * 10 ** 18);
+
+        const tx = await etheruemContract.addProduct(
+          productImage,
+          location.pathname.split("/")[2],
+          productId,
+          productName,
+          priceInWei,
+          BigInt(stock),
+          isEthereum,
+          isStarknet
+        );
+        await tx.wait();
+
+        toast.success("Product added successfully");
+      }
+    } catch (error: any) {
+      toast.error(error.message);
+      console.log(error);
+    } finally {
+      toast.dismiss();
+    }
+  };
+
+  const [ipfsUploadLoading, setIpfsUploadLoading] = useState(false);
   return (
     <div className="container p-7 px-12">
       <Dialog open={showDialog} onOpenChange={setShowDialog}>
@@ -44,18 +91,26 @@ export default function ProductsListedPage() {
                   name: "",
                   image: "",
                   price: 0,
+                  stock: 0,
                   isStarknet: false,
                   isEthereum: false,
                 }}
                 onSubmit={(values) => {
-                  console.log(values);
+                  addProduct(
+                    values.image,
+                    values.name,
+                    values.price.toString(),
+                    values.stock,
+                    values.isEthereum,
+                    values.isStarknet
+                  );
                 }}
               >
                 {(formik) => (
                   <Form className="flex flex-col gap-4">
                     <div className="w-[900px] h-[500px] flex gap-4 items-center">
                       <div className="w-1/3 h-full text-black gap-4 flex flex-col">
-                        <p className="pl-1 mb-4"></p>
+                        <p className="pl-1"></p>
                         <div className="flex flex-col pt-2 gap-2">
                           <Label htmlFor="name" className="">
                             Product Name
@@ -69,7 +124,7 @@ export default function ProductsListedPage() {
                           />
                         </div>
                         <div className="flex flex-col pt-2 gap-2">
-                          <Label htmlFor="name" className="">
+                          <Label htmlFor="price" className="">
                             Product Price
                           </Label>
                           <Field
@@ -82,7 +137,19 @@ export default function ProductsListedPage() {
                           />
                         </div>
                         <div className="flex flex-col pt-2 gap-2">
-                          <Label htmlFor="name" className="">
+                          <Label htmlFor="stock" className="">
+                            Product Stock
+                          </Label>
+                          <Field
+                            as={Input}
+                            name="stock"
+                            type="number"
+                            placeholder="Enter product Stock"
+                            className="w-full bg-white text-black"
+                          />
+                        </div>
+                        <div className="flex flex-col pt-2 gap-2">
+                          <Label htmlFor="image" className="">
                             Product Image
                           </Label>
                           <Input
@@ -94,15 +161,58 @@ export default function ProductsListedPage() {
                             onChange={(
                               event: React.ChangeEvent<HTMLInputElement>
                             ) => {
-                              const file = event.target.files?.[0];
-                              if (file) {
+                              const imageFile = event.target.files?.[0];
+                              if (imageFile) {
                                 // Update Formik state
-                                formik.setFieldValue("image", file);
+                                formik.setFieldValue("image", imageFile);
 
                                 // Generate and set preview URL
-                                const objectUrl = URL.createObjectURL(file);
+                                const objectUrl =
+                                  URL.createObjectURL(imageFile);
 
                                 formik.setFieldValue("image", objectUrl);
+                                let cid;
+
+                                (async function () {
+                                  try {
+                                    if (imageFile) {
+                                      setIpfsUploadLoading(true);
+
+                                      const pinata = new PinataSDK({
+                                        pinataJwt: import.meta.env
+                                          .VITE_PINATA_JWT!,
+                                        pinataGateway:
+                                          "example-gateway.mypinata.cloud",
+                                      });
+
+                                      const upload = await pinata.upload.file(
+                                        imageFile
+                                      );
+
+                                      console.log(upload, " upload");
+                                      cid = upload?.IpfsHash;
+
+                                      console.log("IPFS CID:", cid);
+                                      console.log("done");
+                                      toast.success(
+                                        "Request sent successfully"
+                                      );
+
+                                      formik.setFieldValue("image", cid);
+                                      setIpfsUploadLoading(false);
+                                    }
+                                  } catch (error) {
+                                    console.error(
+                                      error,
+                                      "Error uploading image to ipfs"
+                                    );
+
+                                    setIpfsUploadLoading(false);
+                                    toast.error("Error sending request");
+                                  } finally {
+                                    toast.dismiss();
+                                  }
+                                })();
                               }
                             }}
                           />
@@ -147,21 +257,26 @@ export default function ProductsListedPage() {
                             <div className="h-full flex justify-center items-center border rounded-xl bg-gray-100">
                               <Card className="w-[350px] max-w-md mx-auto">
                                 <CardContent className="p-6">
-                                  <img
-                                    // src={"https://github.com/shadcn-ui.png"}
-                                    src={
-                                      formik.values.image
-                                        ? formik.values.image
-                                        : "https://media.istockphoto.com/id/1147544807/vector/thumbnail-image-vector-graphic.jpg?s=612x612&w=0&k=20&c=rnCKVbdxqkjlcs3xH87-9gocETqpspHFXu5dIGB4wuM="
-                                    }
-                                    alt={"img"}
-                                    className="w-full h-48 object-cover mb-4 rounded"
-                                  />
+                                  <div className="relative">
+                                    {ipfsUploadLoading && (
+                                      <Loader2 className="animate-spin absolute top-1/2 right-1/2" />
+                                    )}
+                                    <img
+                                      // src={"https://github.com/shadcn-ui.png"}
+                                      src={
+                                        formik.values.image
+                                          ? `https://ipfs.io/ipfs/${formik.values.image}`
+                                          : "https://media.istockphoto.com/id/1147544807/vector/thumbnail-image-vector-graphic.jpg?s=612x612&w=0&k=20&c=rnCKVbdxqkjlcs3xH87-9gocETqpspHFXu5dIGB4wuM="
+                                      }
+                                      alt={"img"}
+                                      className="w-full h-48 object-cover mb-4 rounded"
+                                    />
+                                  </div>
                                   <h2 className="text-xl font-semibold mb-2">
                                     {formik.values.name || "Product Name"}
                                   </h2>
                                   <p className="text-2xl font-bold mb-4">
-                                    {Number(formik.values.price).toFixed(2)}
+                                    {Number(formik.values.price)}
                                     &nbsp;USDC
                                   </p>
 
@@ -231,7 +346,9 @@ export default function ProductsListedPage() {
               <TableHead className="w-[100px]"></TableHead>
               <TableHead>Name</TableHead>
               <TableHead>Price</TableHead>
-              <TableHead>Category</TableHead>
+              <TableHead className="text-center">
+                <div className="">Category</div>
+              </TableHead>
               <TableHead className="text-right">Action</TableHead>
             </TableRow>
           </TableHeader>
@@ -248,7 +365,10 @@ export default function ProductsListedPage() {
                 <TableCell className="font-medium">{product.name}</TableCell>
                 <TableCell>${product.price.toFixed(2)}</TableCell>
                 <TableCell>
-                  <Badge>Starknet</Badge>
+                  <div className="flex items-center gap-2 justify-center">
+                    <Badge>Starknet</Badge>
+                    <Badge>Starknet</Badge>
+                  </div>
                 </TableCell>
                 <TableCell className="text-right">
                   <Button variant="outline" size="sm">

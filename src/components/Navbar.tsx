@@ -9,11 +9,15 @@ import {
 } from "@starknet-react/core";
 import {starknetCounterAbi} from "@/lib/starknetabi";
 import {useMemo} from "react";
+import {useNavigate} from "react-router-dom";
+import useGlobalContext from "@/context/useGlobalContext";
 
 export default function Navbar() {
   const {connect, connectors} = useConnect();
   const {address} = useAccount();
   const {disconnect} = useDisconnect({});
+  const navigate = useNavigate();
+  const {connectWallet, ethereumAccount} = useGlobalContext();
 
   const testAddress =
     "0x04718f5a0fc34cc1af16a1cdee98ffb20c31f5cd61d6ab07201858f4287c938d";
@@ -45,17 +49,19 @@ export default function Navbar() {
   <Button onClick={() => writeAsync(calls)}>Test</Button>;
   return (
     <div className="w-full h-[70px] border-b flex justify-between items-center px-6">
-      <div>
-        <b>FundWork</b>
+      <div className="cursor-pointer" onClick={() => navigate(`/`)}>
+        <b>CrossPay</b>
       </div>
 
       <div className="flex items-center gap-6">
         <div className="flex items-center gap-4">
           <p className="font-semibold">{address ? address : "0x"}</p>
           {!address && connectors.length > 0 ? (
-            <Button onClick={() => connect({connector: connectors[0]})}>
-              Connect {connectors[0].id}
-            </Button>
+            <>
+              <Button onClick={() => connect({connector: connectors[0]})}>
+                Connect {connectors[0].id}
+              </Button>
+            </>
           ) : (
             <Button
               onClick={() => {
@@ -64,6 +70,14 @@ export default function Navbar() {
             >
               Disconnect
             </Button>
+          )}
+
+          {ethereumAccount ? (
+            <p>
+              {ethereumAccount.slice(0, 6) + "..." + ethereumAccount.slice(-4)}
+            </p>
+          ) : (
+            <Button onClick={() => connectWallet()}>Connect Metamask</Button>
           )}
         </div>
 

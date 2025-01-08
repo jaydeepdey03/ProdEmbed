@@ -1,4 +1,3 @@
-import {summaryCards} from "@/lib/data";
 import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
 import {
   Area,
@@ -11,6 +10,10 @@ import {
   YAxis,
 } from "recharts";
 import {ChartContainer} from "../components/ui/chart";
+import {useEffect, useState} from "react";
+import useGlobalContext from "@/context/useGlobalContext";
+import {useParams} from "react-router-dom";
+import {DollarSign, Package, ShoppingCart} from "lucide-react";
 
 const data = [
   {
@@ -71,32 +74,65 @@ const data = [
 // ];
 
 export default function Dashboard() {
+  const {ethereumAccount, etheruemContract} = useGlobalContext();
+  const {id} = useParams();
+  const [dashboardDetails, setDashboardDetails] = useState<any[]>([]);
+  useEffect(() => {
+    (async function () {
+      try {
+        if (ethereumAccount !== "" && etheruemContract) {
+          const products = await etheruemContract.getDashboardDetails(
+            ethereumAccount,
+            id
+          );
+          setDashboardDetails(products);
+          console.log(products);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+  }, [ethereumAccount, etheruemContract, id]);
   return (
     <div className="h-full w-full">
       <div className="mx-7">
         <div className="w-full h-32 mt-5 ounded-xl">
           <img
             // src="https://via.placeholder.com/1200x400"
-            src="/test.png"
+            src={dashboardDetails[3]}
             alt="Banner"
             className="w-full h-full object-cover rounded-xl"
           />
         </div>
       </div>
       <div className="grid gap-4 md:grid-cols-3 mb-8 mt-10 px-10">
-        {summaryCards.map((card, index) => (
-          <Card key={index}>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">
-                {card.title}
-              </CardTitle>
-              <card.icon className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">{card.value}</div>
-            </CardContent>
-          </Card>
-        ))}
+        {dashboardDetails &&
+          dashboardDetails.map((_, index) => (
+            <Card key={index}>
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium">
+                  {index == 0
+                    ? "Total Revenue"
+                    : index == 1
+                    ? "Total Orders"
+                    : "Total Products"}
+                </CardTitle>
+                {/* <card.icon className="h-4 w-4 text-muted-foreground" /> */}
+                {index === 0 ? (
+                  <DollarSign className="h-4 w-4 text-muted-foreground" />
+                ) : index === 1 ? (
+                  <ShoppingCart className="h-4 w-4 text-muted-foreground" />
+                ) : (
+                  <Package className="h-4 w-4 text-muted-foreground" />
+                )}
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">
+                  {Number(dashboardDetails[0]._hex)}
+                </div>
+              </CardContent>
+            </Card>
+          ))}
       </div>
       <div className="px-10">
         <h2 className="text-xl font-semibold mb-4">Products</h2>
