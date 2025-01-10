@@ -92,6 +92,9 @@ importers:
       starknetkit:
         specifier: ^2.6.1
         version: 2.6.1(starknet@6.20.3(encoding@0.1.13))
+      starkpay-lib:
+        specifier: ^1.0.1
+        version: 1.0.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       tailwind-merge:
         specifier: ^2.6.0
         version: 2.6.0
@@ -3493,6 +3496,12 @@ packages:
     resolution: {integrity: sha512-1w8F6BShtGr3IE8bTGvaXsiGn+ZUFB2jnC9fqMX89utBUEJtkft4K9r0YJWiPjTho+eap8o4dN0S0G4tisGW7A==}
     peerDependencies:
       starknet: ^6.9.0
+
+  starkpay-lib@1.0.1:
+    resolution: {integrity: sha512-5CJ7yu/Tv8yXBVaI9Q7jAer1tK6OFpnjQo/gi5FPUjzkoBTKq8H9f93xFTeZ9ushn7cyL0TbWgPSP6mXW9o4XQ==}
+    peerDependencies:
+      react: ^18.3.1
+      react-dom: ^18.3.1
 
   static-eval@2.0.2:
     resolution: {integrity: sha512-N/D219Hcr2bPjLxPiV+TQE++Tsmrady7TqAJugLy7Xk1EumfDWS/f5dtBbkRCGE7wKKXuYockQoj8Rm2/pVKyg==}
@@ -7999,6 +8008,15 @@ snapshots:
       - db0
       - ioredis
       - uploadthing
+      - utf-8-validate
+
+  starkpay-lib@1.0.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+    dependencies:
+      ethers: 5.7.2
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+    transitivePeerDependencies:
+      - bufferutil
       - utf-8-validate
 
   static-eval@2.0.2:

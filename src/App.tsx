@@ -16,8 +16,8 @@ function App() {
   return (
     <>
       <StarknetProvider>
-        <GlobalContextProvider>
-          <BrowserRouter>
+        <BrowserRouter>
+          <GlobalContextProvider>
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/connect" element={<ConnectWalletPage />} />
@@ -31,8 +31,8 @@ function App() {
               <Route path="/test" element={<Test />} />
               <Route path="*" element={<div>Not Found</div>} />
             </Routes>
-          </BrowserRouter>
-        </GlobalContextProvider>
+          </GlobalContextProvider>
+        </BrowserRouter>
         <Toaster />
       </StarknetProvider>
     </>

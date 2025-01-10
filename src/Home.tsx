@@ -25,12 +25,6 @@ function Home() {
   const navigate = useNavigate();
   const {ethereumAccount, etheruemContract} = useGlobalContext();
 
-  useEffect(() => {
-    if (ethereumAccount === "") {
-      navigate("/connect");
-    }
-  }, [ethereumAccount]);
-
   const [dashboardValues, setDashboardValues] = useState<any[]>([]);
 
   useEffect(() => {
