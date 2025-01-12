@@ -16,37 +16,6 @@ import {useNavigate, useParams} from "react-router-dom";
 import {DollarSign, Package, ShoppingCart} from "lucide-react";
 import {ethers} from "ethers";
 
-const data = [
-  {
-    name: "Page A",
-    total: 400,
-  },
-  {
-    name: "Page B",
-    total: 300,
-  },
-  {
-    name: "Page C",
-    total: 300,
-  },
-  {
-    name: "Page D",
-    total: 200,
-  },
-  {
-    name: "Page E",
-    total: 278,
-  },
-  {
-    name: "Page F",
-    total: 189,
-  },
-  {
-    name: "Page G",
-    total: 239,
-  },
-];
-
 // const data1 = [
 //   {
 //     id: "m5gr84i9",
