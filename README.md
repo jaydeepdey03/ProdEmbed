@@ -1,50 +1,52 @@
-# React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# **Project Name: EmbedCommerce**
 
-Currently, two official plugins are available:
+**EmbedCommerce** is a versatile e-commerce platform designed to seamlessly manage and embed products into any React-based project. With a powerful SDK, you can easily integrate your products and accept payments via StarkNet and Citrea Ethereum Chain, enabling decentralized and efficient transactions.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## **Features**
 
-## Expanding the ESLint configuration
+- **Product Management**: Effortlessly manage all your products, including details, pricing, and availability.
+- **React SDK**: Embed your products directly into any React project with a simple SDK integration.
+- **Blockchain Payments**: Enable secure and seamless payments using StarkNet and Citrea Ethereum Chain.
+- **Customizable**: Fully customize your storefront and payment processes to suit your brand.
+- **Multi-Chain Support**: Accept payments from both StarkNet and Citrea Ethereum Chain, ensuring flexibility in your payment options.
+- **Dashboard**: To view your product sales data captured via the SDK
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## **Tech Stack**
 
-- Configure the top-level `parserOptions` property like this:
+- **Frontend**: React.js
+- **Blockchain Integration**: StarkNet, Citrea Ethereum Chain
+- **SDK**: JavaScript SDK for easy integration into React projects
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## **Installation**
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+To install ProdEmbed and get started, follow the steps below:
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+1. For the SDK integration into your React project, install it via npm:
+   ```bash
+   npm i prodembed-productitem-sdk
+   ```
+
+## **Usage**
+
+### **Integrating the SDK in Your React Project**
+
+1. Import the SDK in your React component:
+   ```javascript
+    import { ProductCard } from "prodembed-productitem-sdk";
+   ```
+
+2. Use the `EmbedCommerce` component to embed products:
+   ```jsx
+      <ProductCard
+        apiKey="<dashboard api key>"
+        merchantAddress="<merchants address>"
+        productId="<product id>"
+      />
+      
+   ```
+
+## **License**
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
