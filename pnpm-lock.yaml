@@ -69,8 +69,8 @@ importers:
         specifier: ^0.5.4
         version: 0.5.4
       prodembed-productitem-sdk:
-        specifier: ^0.0.2
-        version: 0.0.2(encoding@0.1.13)(get-starknet-core@4.0.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.3)
+        specifier: ^0.0.3
+        version: 0.0.3(encoding@0.1.13)(get-starknet-core@4.0.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.3)
       react:
         specifier: ^18.3.1
         version: 18.3.1
@@ -3174,8 +3174,8 @@ packages:
   process-warning@1.0.0:
     resolution: {integrity: sha512-du4wfLyj4yCZq1VupnVSZmRsPJsNuxoDQFdCFHLaYiEbFBD7QE0a+I4D7hOxrVnh78QE/YipFAj9lXHiXocV+Q==}
 
-  prodembed-productitem-sdk@0.0.2:
-    resolution: {integrity: sha512-+uFoeWaE8X6KT6I0yigtBHK97ES2VPSO3LSvokZuFLSNKV19rBjomPbzjHPgqtVUNfhUWICf8qFwzzg8I5KMOw==}
+  prodembed-productitem-sdk@0.0.3:
+    resolution: {integrity: sha512-dCpphMpty1ij/CfZfb6uW/MM8xYr+DZQFkVe/vijfztIJo4G51oJeds5wgWjJlUyW7jlY3n9qr2ijebwR683jQ==}
     peerDependencies:
       react: ^18.3.1
       react-dom: ^18.3.1
@@ -7626,7 +7626,7 @@ snapshots:
 
   process-warning@1.0.0: {}
 
-  prodembed-productitem-sdk@0.0.2(encoding@0.1.13)(get-starknet-core@4.0.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.3):
+  prodembed-productitem-sdk@0.0.3(encoding@0.1.13)(get-starknet-core@4.0.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.3):
     dependencies:
       '@starknet-react/chains': 3.1.2
       '@starknet-react/core': 3.6.5(get-starknet-core@4.0.0)(react@18.3.1)(starknet@6.21.0(encoding@0.1.13))(typescript@5.6.3)
