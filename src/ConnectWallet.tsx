@@ -20,23 +20,23 @@ export default function ConnectWalletPage() {
     //   <Button onClick={() => handleLogin()}>Connect</Button>
     // </div>
 
-    <div className="w-full lg:grid lg:min-h-[600px] lg:grid-cols-2 xl:min-h-[800px]">
+    <div className="w-full lg:grid lg:min-h-[600px] lg:grid-cols-2 xl:min-h-[800px] ">
       <div className="hidden bg-muted text-white relative thumbnail justify-center items-center lg:flex">
-        {/* <img
-        src={
-          "https://cdn.prod.website-files.com/66b1e1cb750c24d738b2c64b/66b35f38ea5346a4abeb65d6_Livepeer%20Hub%20(3)%20(1).png"
-        }
-        alt="Image"
-        // width="1920"
-        // height="1080"
-        className="h-full w-full object-cover dark:brightness-[0.2] dark:grayscale absolute top-0 left-0 z-0"
-      /> */}
+        <img
+          src={
+            "https://cdn.prod.website-files.com/66b1e1cb750c24d738b2c64b/66b35f38ea5346a4abeb65d6_Livepeer%20Hub%20(3)%20(1).png"
+          }
+          alt="Image"
+          // width="1920"
+          // height="1080"
+          className="h-full w-full object-cover dark:brightness-[0.2] dark:grayscale absolute top-0 left-0 z-0"
+        />
 
-        <div className="text-4xl font-semibold z-[100] flex flex-col gap-8">
-          <p className="text-5xl">Reward Open-Source </p>
-          <p>Verify Contributions</p>
-          <div className="flex gap-1 items-center text-4xl">
-            <p className="font-bold">Empower Developers</p>
+        <div className="text-4xl font-semibold z-[100] flex flex-col gap-8 justify-start">
+          <p className="text-7xl">Simplify.</p>
+          <p className="text-5xl">Scale.</p>
+          <div className="flex gap-1 items-center text-5xlxl">
+            <p className="font-bold">Earn.</p>
             {/* <img src="/seda.png" alt="livepeer" className="" />  */}
           </div>
         </div>

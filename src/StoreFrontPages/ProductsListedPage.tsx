@@ -566,17 +566,20 @@ export default function ProductsListedPage() {
                                   </div>
                                 </TabsContent>
                                 <TabsContent value="code" className="h-[90%]">
-                                  <div className="h-full flex justify-center items-center border rounded-xl bg-gray-100 overflow-y-auto">
-                                    <pre>
-                                      {`
-      import {ProductCard} from "starkpay-lib";
+                                  <div className="h-full flex justify-center items-center border rounded-xl bg-gray-100 overflow-y-auto p-4">
+                                    <div className="bg-gray-800 text-white p-4 rounded-lg">
+                                      <pre className="text-sm font-mono">
+                                        {`
+      import { ProductCard } from "prodembed-productitem-sdk";
+
       <ProductCard
         apiKey="${location.pathname.split("/")[2]}"
         merchantAddress="${ethereumAccount}"
         productId="${product.productId}"
       />
-    `}
-                                    </pre>
+      `}
+                                      </pre>
+                                    </div>
                                   </div>
                                 </TabsContent>
                               </Tabs>

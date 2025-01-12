@@ -66,6 +66,12 @@ function Home() {
     }
   };
 
+  useEffect(() => {
+    if (ethereumAccount === "") {
+      navigate("/connect");
+    }
+  }, []);
+
   return (
     <>
       <Dialog open={showDialog} onOpenChange={setShowDialog}>
