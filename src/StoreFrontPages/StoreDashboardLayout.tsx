@@ -1,6 +1,8 @@
 import Navbar from "@/components/Navbar";
 import {Button} from "@/components/ui/button";
+import useGlobalContext from "@/context/useGlobalContext";
 import {House, Package, Settings} from "lucide-react";
+import {useEffect} from "react";
 import {Outlet, useLocation, useNavigate, useParams} from "react-router-dom";
 
 const StoreDashboardLayout = () => {
@@ -8,6 +10,13 @@ const StoreDashboardLayout = () => {
   const location = useLocation();
   console.log(location.pathname.split("/")[3], "location");
   const navigate = useNavigate();
+  const {ethereumAccount} = useGlobalContext();
+
+  useEffect(() => {
+    if (ethereumAccount === "") {
+      navigate("/connect");
+    }
+  }, []);
   return (
     <div>
       <Navbar />

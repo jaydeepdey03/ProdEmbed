@@ -12,7 +12,7 @@ import {
 import {ChartContainer} from "../components/ui/chart";
 import {useEffect, useState} from "react";
 import useGlobalContext from "@/context/useGlobalContext";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {DollarSign, Package, ShoppingCart} from "lucide-react";
 import {ethers} from "ethers";
 
@@ -78,6 +78,73 @@ export default function Dashboard() {
   const {ethereumAccount, etheruemContract} = useGlobalContext();
   const {id} = useParams();
   const [dashboardDetails, setDashboardDetails] = useState<any[]>([]);
+  const navigate = useNavigate();
+  const [purchasesDetails, setPurchasesDetails] = useState<any[]>([]);
+
+  const formatPurchasesByMonth = (purchases: any) => {
+    const groupedByMonth: Record<string, number> = {};
+    const monthNames = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ];
+
+    purchases.forEach(
+      ([, , timestampBigNumber]: [string, number, {_hex: string}]) => {
+        // Convert BigNumber timestamp to a number
+        const timestamp = parseInt(timestampBigNumber._hex, 16);
+
+        console.log(timestamp, "timestamp");
+        // Convert the timestamp to a Date object
+        const date = new Date(timestamp * 1000);
+        const month = monthNames[date.getMonth()]; // Map numeric month to name
+
+        // Group and count the orders
+        groupedByMonth[month] = (groupedByMonth[month] || 0) + 1;
+      }
+    );
+
+    // Convert the grouped object into an array
+    return Object.entries(groupedByMonth).map(([month, totalOrders]) => ({
+      month,
+      totalOrders,
+    }));
+  };
+
+  useEffect(() => {
+    if (ethereumAccount === "") {
+      navigate("/connect");
+    }
+  }, []);
+
+  useEffect(() => {
+    (async function () {
+      try {
+        if (ethereumAccount !== "" && etheruemContract) {
+          const products = await etheruemContract.getPurchaseHistory(
+            ethereumAccount,
+            id
+          );
+
+          const formattedPurchases = formatPurchasesByMonth(products);
+          setPurchasesDetails(formattedPurchases);
+          console.log(formattedPurchases, "products");
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+  }, [ethereumAccount, etheruemContract, id]);
+
   useEffect(() => {
     (async function () {
       try {
@@ -162,7 +229,7 @@ export default function Dashboard() {
                   <AreaChart
                     width={730}
                     height={250}
-                    data={data}
+                    data={purchasesDetails}
                     margin={{top: 10, right: 30, left: 0, bottom: 0}}
                   >
                     <defs>
@@ -179,13 +246,13 @@ export default function Dashboard() {
                         />
                       </linearGradient>
                     </defs>
-                    <XAxis dataKey="name" />
+                    <XAxis dataKey="month" />
                     <YAxis />
                     {/* <CartesianGrid strokeDasharray="3 3" /> */}
                     <Tooltip />
                     <Area
                       type="monotone"
-                      dataKey="total"
+                      dataKey="totalOrders"
                       stroke="#8884d8"
                       fillOpacity={1}
                       fill="url(#colorUv)"
@@ -210,13 +277,13 @@ export default function Dashboard() {
                 className="h-full pr-6"
               >
                 <ResponsiveContainer width="100%" height="100%">
-                  <BarChart width={730} height={250} data={data}>
+                  <BarChart width={730} height={250} data={purchasesDetails}>
                     {/* <CartesianGrid strokeDasharray="3 3" /> */}
-                    <XAxis dataKey="name" />
+                    <XAxis dataKey="month" />
                     <YAxis />
                     <Tooltip />
                     {/* <Legend /> */}
-                    <Bar dataKey="total" fill="#82ca9d" />
+                    <Bar dataKey="totalOrders" fill="#82ca9d" />
                   </BarChart>
                 </ResponsiveContainer>
               </ChartContainer>
