@@ -8,7 +8,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import {ArrowRight, ExternalLink, Loader2} from "lucide-react";
+import {ArrowRight, Loader2} from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -522,8 +522,7 @@ export default function ProductsListedPage() {
                                           />
                                         </div>
                                         <h2 className="text-xl font-semibold mb-2">
-                                          {product.productName ||
-                                            "Product Name"}
+                                          {product.name || "Product Name"}
                                         </h2>
                                         <p className="text-2xl font-bold mb-4">
                                           {ethers.utils.formatEther(

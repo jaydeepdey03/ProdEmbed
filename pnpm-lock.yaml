@@ -68,6 +68,9 @@ importers:
       pinata-web3:
         specifier: ^0.5.4
         version: 0.5.4
+      prodembed-productitem-sdk:
+        specifier: ^0.0.2
+        version: 0.0.2(encoding@0.1.13)(get-starknet-core@4.0.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.3)
       react:
         specifier: ^18.3.1
         version: 18.3.1
@@ -92,9 +95,6 @@ importers:
       starknetkit:
         specifier: ^2.6.1
         version: 2.6.1(starknet@6.21.0(encoding@0.1.13))
-      starkpay-lib-sdk:
-        specifier: ^1.0.9
-        version: 1.0.9(encoding@0.1.13)(get-starknet-core@4.0.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.3)
       tailwind-merge:
         specifier: ^2.6.0
         version: 2.6.0
@@ -143,7 +143,7 @@ importers:
         version: 5.1.0(eslint@9.18.0(jiti@1.21.7))
       eslint-plugin-react-refresh:
         specifier: ^0.4.16
-        version: 0.4.16(eslint@9.18.0(jiti@1.21.7))
+        version: 0.4.18(eslint@9.18.0(jiti@1.21.7))
       eslint-plugin-unused-imports:
         specifier: ^4.1.4
         version: 4.1.4(@typescript-eslint/eslint-plugin@8.19.1(@typescript-eslint/parser@8.19.1(eslint@9.18.0(jiti@1.21.7))(typescript@5.6.3))(eslint@9.18.0(jiti@1.21.7))(typescript@5.6.3))(eslint@9.18.0(jiti@1.21.7))
@@ -1374,11 +1374,11 @@ packages:
   '@starknet-react/typescript-config@0.0.2':
     resolution: {integrity: sha512-HTr0hxkCXaHb6uFLGf2jGzzMFVdw+8iYEU2jn3AHNZ/6OtwRoBE/h9BiKRt/0bRHpJSoN9AZENjQ6rqx1Lxj5w==}
 
-  '@tanstack/query-core@5.62.16':
-    resolution: {integrity: sha512-9Sgft7Qavcd+sN0V25xVyo0nfmcZXBuODy3FVG7BMWTg1HMLm8wwG5tNlLlmSic1u7l1v786oavn+STiFaPH2g==}
+  '@tanstack/query-core@5.64.0':
+    resolution: {integrity: sha512-/MPJt/AaaMzdWJZTafgMyYhEX/lGjQrNz8+NDQSk8fNoU5PHqh05FhQaBrEQafW2PeBHsRbefEf//qKMiSAbQQ==}
 
-  '@tanstack/react-query@5.63.0':
-    resolution: {integrity: sha512-QWizLzSiog8xqIRYmuJRok9VELlXVBAwtINgVCgW1SNvamQwWDO5R0XFSkjoBEj53x9Of1KAthLRBUC5xmtVLQ==}
+  '@tanstack/react-query@5.64.0':
+    resolution: {integrity: sha512-tBMzlROROUcTDMpDt1NC3n9ndKnJHPB3RCpa6Bf9f31TFvqhLz879x8jldtKU+6IwMSw1Pn4K1AKA+2SYyA6TA==}
     peerDependencies:
       react: ^18 || ^19
 
@@ -2137,8 +2137,8 @@ packages:
     peerDependencies:
       eslint: ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0-0 || ^9.0.0
 
-  eslint-plugin-react-refresh@0.4.16:
-    resolution: {integrity: sha512-slterMlxAhov/DZO8NScf6mEeMBBXodFUolijDvrtTxyezyLoTQaa73FyYus/VbTdftd8wBgBxPMRk3poleXNQ==}
+  eslint-plugin-react-refresh@0.4.18:
+    resolution: {integrity: sha512-IRGEoFn3OKalm3hjfolEWGqoF/jPqeEYFp+C8B0WMzwGwBMvlRDQd06kghDhF0C61uJ6WfSDhEZE/sAQjduKgw==}
     peerDependencies:
       eslint: '>=8.40'
 
@@ -3174,6 +3174,12 @@ packages:
   process-warning@1.0.0:
     resolution: {integrity: sha512-du4wfLyj4yCZq1VupnVSZmRsPJsNuxoDQFdCFHLaYiEbFBD7QE0a+I4D7hOxrVnh78QE/YipFAj9lXHiXocV+Q==}
 
+  prodembed-productitem-sdk@0.0.2:
+    resolution: {integrity: sha512-+uFoeWaE8X6KT6I0yigtBHK97ES2VPSO3LSvokZuFLSNKV19rBjomPbzjHPgqtVUNfhUWICf8qFwzzg8I5KMOw==}
+    peerDependencies:
+      react: ^18.3.1
+      react-dom: ^18.3.1
+
   progress-events@1.0.1:
     resolution: {integrity: sha512-MOzLIwhpt64KIVN64h1MwdKWiyKFNc/S6BoYKPIVUHFg0/eIEyBulhWCgn678v/4c0ri3FdGuzXymNCv02MUIw==}
 
@@ -3499,12 +3505,6 @@ packages:
     resolution: {integrity: sha512-1w8F6BShtGr3IE8bTGvaXsiGn+ZUFB2jnC9fqMX89utBUEJtkft4K9r0YJWiPjTho+eap8o4dN0S0G4tisGW7A==}
     peerDependencies:
       starknet: ^6.9.0
-
-  starkpay-lib-sdk@1.0.9:
-    resolution: {integrity: sha512-TL2Vw0rXqFOlOff2I7f6kqhSUuLrXVN0GhSeweJz+kQ/LM6Usw5o7zTGwT/FKl6b6SDZCPUo/wqKC6+diVsuTA==}
-    peerDependencies:
-      react: ^18.3.1
-      react-dom: ^18.3.1
 
   static-eval@2.0.2:
     resolution: {integrity: sha512-N/D219Hcr2bPjLxPiV+TQE++Tsmrady7TqAJugLy7Xk1EumfDWS/f5dtBbkRCGE7wKKXuYockQoj8Rm2/pVKyg==}
@@ -5464,7 +5464,7 @@ snapshots:
     dependencies:
       '@starknet-io/types-js': 0.7.10
       '@starknet-react/chains': 3.1.2
-      '@tanstack/react-query': 5.63.0(react@18.3.1)
+      '@tanstack/react-query': 5.64.0(react@18.3.1)
       abi-wan-kanabi: 2.2.4
       eventemitter3: 5.0.1
       get-starknet-core: 4.0.0
@@ -5481,11 +5481,11 @@ snapshots:
 
   '@starknet-react/typescript-config@0.0.2': {}
 
-  '@tanstack/query-core@5.62.16': {}
+  '@tanstack/query-core@5.64.0': {}
 
-  '@tanstack/react-query@5.63.0(react@18.3.1)':
+  '@tanstack/react-query@5.64.0(react@18.3.1)':
     dependencies:
-      '@tanstack/query-core': 5.62.16
+      '@tanstack/query-core': 5.64.0
       react: 18.3.1
 
   '@tanstack/react-table@8.20.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
@@ -6456,7 +6456,7 @@ snapshots:
     dependencies:
       eslint: 9.18.0(jiti@1.21.7)
 
-  eslint-plugin-react-refresh@0.4.16(eslint@9.18.0(jiti@1.21.7)):
+  eslint-plugin-react-refresh@0.4.18(eslint@9.18.0(jiti@1.21.7)):
     dependencies:
       eslint: 9.18.0(jiti@1.21.7)
 
@@ -7626,6 +7626,42 @@ snapshots:
 
   process-warning@1.0.0: {}
 
+  prodembed-productitem-sdk@0.0.2(encoding@0.1.13)(get-starknet-core@4.0.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.3):
+    dependencies:
+      '@starknet-react/chains': 3.1.2
+      '@starknet-react/core': 3.6.5(get-starknet-core@4.0.0)(react@18.3.1)(starknet@6.21.0(encoding@0.1.13))(typescript@5.6.3)
+      '@starknet-react/typescript-config': 0.0.2
+      ethers: 5.7.2
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+      sonner: 1.7.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      starknet: 6.21.0(encoding@0.1.13)
+      starknetkit: 2.6.1(starknet@6.21.0(encoding@0.1.13))
+    transitivePeerDependencies:
+      - '@azure/app-configuration'
+      - '@azure/cosmos'
+      - '@azure/data-tables'
+      - '@azure/identity'
+      - '@azure/keyvault-secrets'
+      - '@azure/storage-blob'
+      - '@capacitor/preferences'
+      - '@deno/kv'
+      - '@netlify/blobs'
+      - '@planetscale/database'
+      - '@react-native-async-storage/async-storage'
+      - '@upstash/redis'
+      - '@vercel/blob'
+      - '@vercel/kv'
+      - aws4fetch
+      - bufferutil
+      - db0
+      - encoding
+      - get-starknet-core
+      - ioredis
+      - typescript
+      - uploadthing
+      - utf-8-validate
+
   progress-events@1.0.1: {}
 
   prop-types@15.8.1:
@@ -8014,41 +8050,6 @@ snapshots:
       - bufferutil
       - db0
       - ioredis
-      - uploadthing
-      - utf-8-validate
-
-  starkpay-lib-sdk@1.0.9(encoding@0.1.13)(get-starknet-core@4.0.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.3):
-    dependencies:
-      '@starknet-react/chains': 3.1.2
-      '@starknet-react/core': 3.6.5(get-starknet-core@4.0.0)(react@18.3.1)(starknet@6.21.0(encoding@0.1.13))(typescript@5.6.3)
-      '@starknet-react/typescript-config': 0.0.2
-      ethers: 5.7.2
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
-      starknet: 6.21.0(encoding@0.1.13)
-      starknetkit: 2.6.1(starknet@6.21.0(encoding@0.1.13))
-    transitivePeerDependencies:
-      - '@azure/app-configuration'
-      - '@azure/cosmos'
-      - '@azure/data-tables'
-      - '@azure/identity'
-      - '@azure/keyvault-secrets'
-      - '@azure/storage-blob'
-      - '@capacitor/preferences'
-      - '@deno/kv'
-      - '@netlify/blobs'
-      - '@planetscale/database'
-      - '@react-native-async-storage/async-storage'
-      - '@upstash/redis'
-      - '@vercel/blob'
-      - '@vercel/kv'
-      - aws4fetch
-      - bufferutil
-      - db0
-      - encoding
-      - get-starknet-core
-      - ioredis
-      - typescript
       - uploadthing
       - utf-8-validate
 

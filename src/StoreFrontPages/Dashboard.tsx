@@ -130,10 +130,12 @@ export default function Dashboard() {
               <CardContent>
                 <div className="text-2xl font-bold">
                   {index === 0
-                    ? ethers.utils.formatEther(Number(dashboardDetails[0]._hex))
+                    ? `${ethers.utils.formatEther(
+                        Number(dashboardDetails[0]._hex)
+                      )} USDC`
                     : index === 1
-                    ? Number(dashboardDetails[1]._hex)
-                    : Number(dashboardDetails[2]._hex)}
+                    ? Number(dashboardDetails[2]._hex)
+                    : Number(dashboardDetails[1]._hex)}
                 </div>
               </CardContent>
             </Card>
