@@ -340,10 +340,6 @@ export default function ProductsListedPage() {
                                       </Button>
                                     )}
                                   </div>
-                                  <Button variant="outline" className="w-full">
-                                    <ExternalLink className="h-4 w-4 text-muted-foreground" />
-                                    View in Link
-                                  </Button>
                                 </div>
                               </CardContent>
                             </Card>
@@ -565,13 +561,6 @@ export default function ProductsListedPage() {
                                               </Button>
                                             )}
                                           </div>
-                                          <Button
-                                            variant="outline"
-                                            className="w-full"
-                                          >
-                                            <ExternalLink className="h-4 w-4 text-muted-foreground" />
-                                            View in Link
-                                          </Button>
                                         </div>
                                       </CardContent>
                                     </Card>

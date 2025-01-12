@@ -1,7 +1,6 @@
 import {ethereumabi} from "@/lib/etherumabi";
 import {createContext, ReactNode, useEffect, useState} from "react";
 import {Contract, ethers} from "ethers";
-import {useNavigate} from "react-router-dom";
 
 declare global {
   interface Window {
@@ -22,9 +21,8 @@ export default function GlobalContextProvider({
 }) {
   const [chainId, setChainId] = useState("");
   const [ethereumAccount, setEthereumAccount] = useState("");
-  const navigate = useNavigate();
 
-  const contractAddress = "0xCEDF0a484eE2Bc58F8b2A546eADd8d3541294087";
+  const contractAddress = "0x437d598258525Fb52Ca31A2259624e43472AEbdE";
 
   const {ethereum} = window;
 
@@ -124,11 +122,11 @@ export default function GlobalContextProvider({
     }
   }, [chainId, ethereumAccount]);
 
-  useEffect(() => {
-    if (ethereumAccount === "") {
-      navigate("/connect");
-    }
-  }, [ethereumAccount]);
+  // useEffect(() => {
+  //   if (ethereumAccount === "") {
+  //     navigate("/connect");
+  //   }
+  // }, [ethereumAccount]);
 
   //   define viem
 

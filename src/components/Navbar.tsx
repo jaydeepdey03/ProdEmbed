@@ -2,9 +2,7 @@ import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
 import {Button} from "./ui/button";
 import {
   useAccount,
-  useConnect,
   useContract,
-  useDisconnect,
   useSendTransaction,
 } from "@starknet-react/core";
 import {starknetCounterAbi} from "@/lib/starknetabi";
@@ -13,14 +11,12 @@ import {useNavigate} from "react-router-dom";
 import useGlobalContext from "@/context/useGlobalContext";
 
 export default function Navbar() {
-  const {connect, connectors} = useConnect();
   const {address} = useAccount();
-  const {disconnect} = useDisconnect({});
   const navigate = useNavigate();
   const {connectWallet, ethereumAccount} = useGlobalContext();
 
   const testAddress =
-    "0x04718f5a0fc34cc1af16a1cdee98ffb20c31f5cd61d6ab07201858f4287c938d";
+    "0x060fce01d8a9a6e7c5a16d5fd97a336795b67f89cbbbcfa4ad1b28136ae46ed8";
 
   const {contract} = useContract({
     abi: starknetCounterAbi as any,
@@ -55,23 +51,6 @@ export default function Navbar() {
 
       <div className="flex items-center gap-6">
         <div className="flex items-center gap-4">
-          <p className="font-semibold">{address ? address : "0x"}</p>
-          {!address && connectors.length > 0 ? (
-            <>
-              <Button onClick={() => connect({connector: connectors[0]})}>
-                Connect {connectors[0].id}
-              </Button>
-            </>
-          ) : (
-            <Button
-              onClick={() => {
-                disconnect();
-              }}
-            >
-              Disconnect
-            </Button>
-          )}
-
           {ethereumAccount ? (
             <p>
               {ethereumAccount.slice(0, 6) + "..." + ethereumAccount.slice(-4)}

@@ -14,6 +14,7 @@ import {useEffect, useState} from "react";
 import useGlobalContext from "@/context/useGlobalContext";
 import {useParams} from "react-router-dom";
 import {DollarSign, Package, ShoppingCart} from "lucide-react";
+import {ethers} from "ethers";
 
 const data = [
   {
@@ -99,7 +100,7 @@ export default function Dashboard() {
         <div className="w-full h-32 mt-5 ounded-xl">
           <img
             // src="https://via.placeholder.com/1200x400"
-            src={dashboardDetails[3]}
+            src={"https://gateway.ipfs.io/ipfs/" + dashboardDetails[3]}
             alt="Banner"
             className="w-full h-full object-cover rounded-xl"
           />
@@ -107,7 +108,7 @@ export default function Dashboard() {
       </div>
       <div className="grid gap-4 md:grid-cols-3 mb-8 mt-10 px-10">
         {dashboardDetails &&
-          dashboardDetails.map((_, index) => (
+          dashboardDetails.slice(0, 3).map((_, index) => (
             <Card key={index}>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">
@@ -128,7 +129,11 @@ export default function Dashboard() {
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">
-                  {Number(dashboardDetails[0]._hex)}
+                  {index === 0
+                    ? ethers.utils.formatEther(Number(dashboardDetails[0]._hex))
+                    : index === 1
+                    ? Number(dashboardDetails[1]._hex)
+                    : Number(dashboardDetails[2]._hex)}
                 </div>
               </CardContent>
             </Card>

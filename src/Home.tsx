@@ -2,7 +2,6 @@ import {Loader2, Plus, Upload} from "lucide-react";
 import {useNavigate} from "react-router-dom";
 import Navbar from "./components/Navbar";
 import {useEffect, useState} from "react";
-// import {Button} from "starkpay-lib";
 import {Button} from "@/components/ui/button";
 import {v4 as uuidv4} from "uuid";
 
@@ -28,7 +27,6 @@ function Home() {
   const [dashboardValues, setDashboardValues] = useState<any[]>([]);
 
   useEffect(() => {
-    if (ethereumAccount === "" && !etheruemContract) return;
     const fetchDashboardValues = async () => {
       if (ethereumAccount === "" && !etheruemContract) return;
       try {
@@ -55,7 +53,7 @@ function Home() {
     try {
       if (etheruemContract && ethereumAccount !== "") {
         toast.loading("Creating store");
-        const tx = await etheruemContract.createDashboard(name, image, apiKey);
+        const tx = await etheruemContract.createDashboard(apiKey, name, image);
         await tx.wait();
         window.location.reload();
         toast.success("Created store successfully");
@@ -78,7 +76,7 @@ function Home() {
               <Formik
                 initialValues={{name: "", image: ""}}
                 onSubmit={(values) => {
-                  // console.log(values);
+                  console.log(values);
                   addStore(values.name, values.image);
                 }}
               >
@@ -262,8 +260,11 @@ function Home() {
                 {/* <Plus className="border-2 border-black rounded-full p-[3px] h-10 w-10 text-gray-600 z-10 bg-white" /> */}
                 <div className="h-[80%] w-full flex items-center justify-center gap-3">
                   <img
-                    src={dashboardValues[1][index]}
-                    // src={"https://ipfs.io/ipfs/" + dashboardValues[1][index]}
+                    // src={dashboardValues[0][index]}
+                    src={
+                      "https://gateway.ipfs.io/ipfs/" +
+                      dashboardValues[1][index]
+                    }
                     // src="/test.png"
                     alt="img"
                     className="object-contain h-full w-full"
